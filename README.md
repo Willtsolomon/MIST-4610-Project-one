@@ -65,7 +65,7 @@ FROM Patients
 JOIN PatientInsurances USING (patientID)
 WHERE expirationDate REGEXP '2024-05' OR expirationDate REGEXP '2024-04';
 
- ![image](https://github.com/Willtsolomon/MIST-4610-Project-one/assets/165089413/a88e8d29-63fa-4aa5-8b3c-34bd688fb46d)
+<img width="538" alt="Screenshot 2024-03-27 at 7 27 32 PM" src="https://github.com/Willtsolomon/MIST-4610-Project-one/assets/165089413/d105c4d0-5877-42b2-812e-f88dc4806159">
 
 Q1 Description- Insurance Expiration Tracking: This query identifies patients whose insurance policies are set to expire in the next two months by checking for expiration dates in May or April 2024. This is crucial for clinics as it helps in proactive patient communication, ensuring that patients are aware of their insurance status and can take necessary actions to renew their policies or arrange alternative payment methods. It supports the clinic's financial stability by minimizing the risk of unpaid services due to expired insurance.
 
@@ -75,7 +75,8 @@ Q1 Description- Insurance Expiration Tracking: This query identifies patients wh
 SELECT CONCAT(ROUND(COUNT(state) /(SELECT COUNT(state) FROM Patients)*100, 2), "%") as statePreportion
 FROM Patients
 WHERE state = "Alabama";
- ![image](https://github.com/Willtsolomon/MIST-4610-Project-one/assets/165089413/32f749ea-033d-45db-9144-b3126f353e5b)
+
+<img width="642" alt="Screenshot 2024-03-27 at 7 28 31 PM" src="https://github.com/Willtsolomon/MIST-4610-Project-one/assets/165089413/77ee9165-9777-4e8f-9225-e0fb027097f1">
 
 Q2 Description- Patient Demographics Analysis: By calculating the percentage of patients from Alabama, this query aids in understanding the demographic spread of the clinic's patient base. This insight is important for tailoring healthcare services, outreach, and educational programs specific to the predominant patient population. It can also guide resource allocation, such as staffing needs and the types of medical services offered, to better serve the community's health needs.
 
@@ -89,8 +90,7 @@ JOIN Invoices USING (visitID)
 JOIN Payments USING (invoiceID)
 WHERE paymentStatus = "Unpaid"; 
 
-
- ![image](https://github.com/Willtsolomon/MIST-4610-Project-one/assets/165089413/05784c1b-0dd6-4402-a120-c56efe4b414e)
+<img width="536" alt="Screenshot 2024-03-27 at 7 28 46 PM" src="https://github.com/Willtsolomon/MIST-4610-Project-one/assets/165089413/6735d1e3-de9a-45e7-aa60-f17248398e1e">
 
 Q3 Description- Unpaid Invoices Monitoring: This query lists patients who have outstanding payments by identifying unpaid invoices. It's vital for the clinic's revenue cycle management, helping the billing department to follow up on unpaid bills and maintain a healthy cash flow. Prompt identification and resolution of unpaid accounts can significantly impact the clinic's operational efficiency and financial health.
 
@@ -103,8 +103,7 @@ FROM Equipments
 JOIN PatientTreatments USING (equipmentID)
 WHERE dateTreated REGEXP "2024";
 
- ![image](https://github.com/Willtsolomon/MIST-4610-Project-one/assets/165089413/b8988efc-0b19-4b5f-a287-10febe60102b)
-
+<img width="637" alt="Screenshot 2024-03-27 at 7 29 01 PM" src="https://github.com/Willtsolomon/MIST-4610-Project-one/assets/165089413/724f8b0a-4151-4a62-8ad9-c272bf6c75be">
 
 Q4 Description-Equipment Utilization and Cost Management: By listing the equipment used within the year, along with associated costs and treatment dates, this query provides insights into equipment utilization and expenditure. It helps the clinic in budgeting and financial planning, ensuring that equipment costs are accounted for and optimized for patient care. It also aids in inventory management and the planning of future investments in medical equipment.
 
@@ -119,7 +118,7 @@ JOIN Invoices ON Visits.patientID = Invoices.patientID
 WHERE totalAmount > 50
 Group By Patients.name, totalAmount;
 
- ![image](https://github.com/Willtsolomon/MIST-4610-Project-one/assets/165089413/917d4bf1-75ef-4675-b1e6-15e5fc525db9)
+<img width="567" alt="Screenshot 2024-03-27 at 7 29 14 PM" src="https://github.com/Willtsolomon/MIST-4610-Project-one/assets/165089413/2c0e6c50-411a-419f-86f5-51af624b4fc5">
 
 Q5 Description- Financial Analysis of Patient Payments: The query identifies the total amount of money paid by each patient, focusing on those who have spent over $50. This is relevant for analyzing patient spending patterns, assessing the financial health of the clinic, and identifying key revenue-generating services. It enables the clinic to make informed decisions about service pricing, discounts, and insurance negotiations to enhance profitability and patient satisfaction.
 
@@ -132,7 +131,7 @@ FROM MedicalStaffs
 JOIN Appointments on MedicalStaffs.staffID = Appointments.staffID
 JOIN Patients on Appointments.patientID = Patients.patientID;
 
- ![image](https://github.com/Willtsolomon/MIST-4610-Project-one/assets/165089413/6b1b4c76-d8f6-4fb0-aab8-a8566bce461c)
+<img width="642" alt="Screenshot 2024-03-27 at 7 29 28 PM" src="https://github.com/Willtsolomon/MIST-4610-Project-one/assets/165089413/6d5eaeb9-e985-4085-abdc-ea76f66f5889">
 
 Q6 Description- Staff and Patient Interaction Tracking: Listing the names of patients, the staff members who saw them, and the dates of these interactions, this query supports staff scheduling and patient care coordination. It provides a clear record of patient-staff interactions, aiding in personnel management, ensuring adequate staff-patient ratios, and enhancing patient care by maintaining continuity and personalization of services.
 
@@ -147,7 +146,7 @@ JOIN Visits ON PatientTreatments.visitID = Visits.visitID
 WHERE specialization REGEXP "Orthopedics" 
 GROUP BY MedicalStaffs.staffID; 
 
- ![image](https://github.com/Willtsolomon/MIST-4610-Project-one/assets/165089413/e0dfe759-4fc1-48b9-a181-a34a330ec5a9)
+<img width="638" alt="Screenshot 2024-03-27 at 7 29 49 PM" src="https://github.com/Willtsolomon/MIST-4610-Project-one/assets/165089413/6983aa53-4650-4b61-970b-7050b557dc18">
 
 Q7 Description- Specialization and Patient Load Analysis: By identifying medical staff specializing in Orthopedics and the number of patients they have treated, this query helps in resource allocation and highlights areas of high demand. It informs the clinic's staffing decisions, professional development opportunities, and the need for expanding services in high-demand specializations to meet patient needs effectively.
 
@@ -162,9 +161,7 @@ JOIN Patients ON Appointments.patientID = Patients.patientID
 WHERE Appointments.status = 'Resolved'
 GROUP BY MedicalStaffs.staffID;
 
-
- ![image](https://github.com/Willtsolomon/MIST-4610-Project-one/assets/165089413/9585fc64-cf0a-466b-a415-81e2b18b4805)
-
+<img width="640" alt="Screenshot 2024-03-27 at 7 30 03 PM" src="https://github.com/Willtsolomon/MIST-4610-Project-one/assets/165089413/c902c553-3534-4322-b014-47ac75b9e5fb">
 
 Q8 Description- Performance Metrics for Medical Staff: This query lists medical staff who have completed appointments with a status of 'Resolved', along with the number of unique patients seen. It serves as a performance indicator, rewarding efficiency and effectiveness in patient care. It aids in recognizing and promoting high-performing staff, motivating improvements in patient service quality, and identifying areas for operational enhancements.
 
@@ -178,8 +175,7 @@ JOIN PatientInsurances USING (providerID)
 GROUP BY providerID
 HAVING COUNT(patientID) >= 5;
 
- ![image](https://github.com/Willtsolomon/MIST-4610-Project-one/assets/165089413/3e5079dd-f43a-48be-a466-4fbd2d01c34a)
-
+<img width="633" alt="Screenshot 2024-03-27 at 7 30 20 PM" src="https://github.com/Willtsolomon/MIST-4610-Project-one/assets/165089413/e5490819-684b-4345-8f0b-101fe71edc4f">
 
 Q9 Description- Insurance Provider Collaboration: Finding insurance providers that cover five or more patients at the clinic, this query identifies key insurance partnerships. It's essential for negotiating insurance contracts, understanding patient insurance preferences, and ensuring a broad coverage network. This collaboration between clinics and insurance providers is vital for patient access to affordable care and clinic revenue management.
 
@@ -193,9 +189,8 @@ WHERE EXISTS (
     FROM PatientTreatments 
     JOIN Equipments USING (equipmentID)
     WHERE MedicalStaffs.staffID = PatientTreatments.staffID AND Equipments.name REGEXP 'ECG'
-
- ![image](https://github.com/Willtsolomon/MIST-4610-Project-one/assets/165089413/52851fc7-119a-439d-9775-8f3cff09c9b7)
-
+    
+<img width="623" alt="Screenshot 2024-03-27 at 7 30 38 PM" src="https://github.com/Willtsolomon/MIST-4610-Project-one/assets/165089413/18e5248a-8d81-4526-8a0d-1e608b7c1a5a">
 
 Q10 Description- Staff Utilization of Medical Equipment: By identifying staff members who have used the ECG machine, this query highlights the integration of technology in patient care and the expertise of staff in utilizing specific equipment. It's relevant for assessing training needs, ensuring competent use of medical technology, and planning for equipment maintenance or upgrades to enhance patient care quality.
 
