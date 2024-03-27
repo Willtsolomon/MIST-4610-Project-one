@@ -3,7 +3,7 @@
 
 ### Team Name:
 
-Group 8
+61608 Group 8
 
 ## Team Members:
 
@@ -56,6 +56,148 @@ Overall, our data model provides a comprehensive framework for managing the comp
 
 ## Queries:
 
+<img width="660" alt="Screenshot 2024-03-27 at 7 11 35 PM" src="https://github.com/Willtsolomon/MIST-4610-Project-one/assets/165089413/cdf684a5-26de-464b-9b62-afb702a1de4b">
+
+1. This query allows us to find the patients whose insurances expire in the next 2 months.
+
+SELECT name, email, expirationDate
+FROM Patients 
+JOIN PatientInsurances USING (patientID)
+WHERE expirationDate REGEXP '2024-05' OR expirationDate REGEXP '2024-04';
+
+ ![image](https://github.com/Willtsolomon/MIST-4610-Project-one/assets/165089413/a88e8d29-63fa-4aa5-8b3c-34bd688fb46d)
+
+Q1 Description- Insurance Expiration Tracking: This query identifies patients whose insurance policies are set to expire in the next two months by checking for expiration dates in May or April 2024. This is crucial for clinics as it helps in proactive patient communication, ensuring that patients are aware of their insurance status and can take necessary actions to renew their policies or arrange alternative payment methods. It supports the clinic's financial stability by minimizing the risk of unpaid services due to expired insurance.
+
+---------------------------------------------------------------------------------------
+2. Find the percentage of all patients that are from Alabama.
+
+SELECT CONCAT(ROUND(COUNT(state) /(SELECT COUNT(state) FROM Patients)*100, 2), "%") as statePreportion
+FROM Patients
+WHERE state = "Alabama";
+ ![image](https://github.com/Willtsolomon/MIST-4610-Project-one/assets/165089413/32f749ea-033d-45db-9144-b3126f353e5b)
+
+Q2 Description- Patient Demographics Analysis: By calculating the percentage of patients from Alabama, this query aids in understanding the demographic spread of the clinic's patient base. This insight is important for tailoring healthcare services, outreach, and educational programs specific to the predominant patient population. It can also guide resource allocation, such as staffing needs and the types of medical services offered, to better serve the community's health needs.
+
+---------------------------------------------------------------------------------------
+3. Find the names and ID of the patients that have NOT paid.
+   
+SELECT name, Patients.patientID, CONCAT("$", Payments.amount)
+From Patients 
+JOIN Visits USING (patientID) 
+JOIN Invoices USING (visitID) 
+JOIN Payments USING (invoiceID)
+WHERE paymentStatus = "Unpaid"; 
+
+
+ ![image](https://github.com/Willtsolomon/MIST-4610-Project-one/assets/165089413/05784c1b-0dd6-4402-a120-c56efe4b414e)
+
+Q3 Description- Unpaid Invoices Monitoring: This query lists patients who have outstanding payments by identifying unpaid invoices. It's vital for the clinic's revenue cycle management, helping the billing department to follow up on unpaid bills and maintain a healthy cash flow. Prompt identification and resolution of unpaid accounts can significantly impact the clinic's operational efficiency and financial health.
+
+---------------------------------------------------------------------------------------
+
+4. Find Equipment name, associated cost, and date treated of equipment used within the year of 2024 so far.
+
+SELECT Equipments.name, CONCAT("$",cost) as cost, dateTreated
+FROM Equipments
+JOIN PatientTreatments USING (equipmentID)
+WHERE dateTreated REGEXP "2024";
+
+ ![image](https://github.com/Willtsolomon/MIST-4610-Project-one/assets/165089413/b8988efc-0b19-4b5f-a287-10febe60102b)
+
+
+Q4 Description-Equipment Utilization and Cost Management: By listing the equipment used within the year, along with associated costs and treatment dates, this query provides insights into equipment utilization and expenditure. It helps the clinic in budgeting and financial planning, ensuring that equipment costs are accounted for and optimized for patient care. It also aids in inventory management and the planning of future investments in medical equipment.
+
+---------------------------------------------------------------------------------------
+
+5. Find the total amount of money paid by each patient.
+   
+SELECT totalAmount, Patients.name
+FROM Patients
+JOIN Visits ON Patients.patientID = Visits.patientID
+JOIN Invoices ON Visits.patientID = Invoices.patientID
+WHERE totalAmount > 50
+Group By Patients.name, totalAmount;
+
+ ![image](https://github.com/Willtsolomon/MIST-4610-Project-one/assets/165089413/917d4bf1-75ef-4675-b1e6-15e5fc525db9)
+
+Q5 Description- Financial Analysis of Patient Payments: The query identifies the total amount of money paid by each patient, focusing on those who have spent over $50. This is relevant for analyzing patient spending patterns, assessing the financial health of the clinic, and identifying key revenue-generating services. It enables the clinic to make informed decisions about service pricing, discounts, and insurance negotiations to enhance profitability and patient satisfaction.
+
+---------------------------------------------------------------------------------------
+
+6. List the names of each patient, the staff member name and ID they were seen by, and the Date the Patient was seen.
+   
+SELECT MedicalStaffs.staffID, staffName, Patients.name, appointmentDate
+FROM MedicalStaffs
+JOIN Appointments on MedicalStaffs.staffID = Appointments.staffID
+JOIN Patients on Appointments.patientID = Patients.patientID;
+
+ ![image](https://github.com/Willtsolomon/MIST-4610-Project-one/assets/165089413/6b1b4c76-d8f6-4fb0-aab8-a8566bce461c)
+
+Q6 Description- Staff and Patient Interaction Tracking: Listing the names of patients, the staff members who saw them, and the dates of these interactions, this query supports staff scheduling and patient care coordination. It provides a clear record of patient-staff interactions, aiding in personnel management, ensuring adequate staff-patient ratios, and enhancing patient care by maintaining continuity and personalization of services.
+
+---------------------------------------------------------------------------------------
+
+7.This query lists the names of the medical staff that specialize in Orthopedics as well as the number of patients they have had appointments with.
+
+SELECT staffName, specialization, COUNT(Distinct Visits.visitID) AS numTreated
+FROM MedicalStaffs
+JOIN PatientTreatments ON MedicalStaffs.staffID = PatientTreatments.staffID
+JOIN Visits ON PatientTreatments.visitID = Visits.visitID
+WHERE specialization REGEXP "Orthopedics" 
+GROUP BY MedicalStaffs.staffID; 
+
+ ![image](https://github.com/Willtsolomon/MIST-4610-Project-one/assets/165089413/e0dfe759-4fc1-48b9-a181-a34a330ec5a9)
+
+Q7 Description- Specialization and Patient Load Analysis: By identifying medical staff specializing in Orthopedics and the number of patients they have treated, this query helps in resource allocation and highlights areas of high demand. It informs the clinic's staffing decisions, professional development opportunities, and the need for expanding services in high-demand specializations to meet patient needs effectively.
+
+-------------------------------------------------------------------------------------------
+
+8. List Medical Staff Who Completed Appointments and the Number of Unique Patients Seen who the status had resolved.
+
+SELECT  MedicalStaffs.staffName, MedicalStaffs.specialization, COUNT(DISTINCT Patients.patientID) AS’ PatientsSeen’
+FROM MedicalStaffs
+JOIN Appointments ON MedicalStaffs.staffID = Appointments.staffID
+JOIN Patients ON Appointments.patientID = Patients.patientID
+WHERE Appointments.status = 'Resolved'
+GROUP BY MedicalStaffs.staffID;
+
+
+ ![image](https://github.com/Willtsolomon/MIST-4610-Project-one/assets/165089413/9585fc64-cf0a-466b-a415-81e2b18b4805)
+
+
+Q8 Description- Performance Metrics for Medical Staff: This query lists medical staff who have completed appointments with a status of 'Resolved', along with the number of unique patients seen. It serves as a performance indicator, rewarding efficiency and effectiveness in patient care. It aids in recognizing and promoting high-performing staff, motivating improvements in patient service quality, and identifying areas for operational enhancements.
+
+---------------------------------------------------------------------------------------
+
+9. This query finds the insurance providers that support the clinic that cover 5 or more patients at the clinic. 
+
+SELECT InsuranceProviders.name as Provider,contactInfo, COUNT(patientID) AS NumberOfPatients
+FROM InsuranceProviders 
+JOIN PatientInsurances USING (providerID)
+GROUP BY providerID
+HAVING COUNT(patientID) >= 5;
+
+ ![image](https://github.com/Willtsolomon/MIST-4610-Project-one/assets/165089413/3e5079dd-f43a-48be-a466-4fbd2d01c34a)
+
+
+Q9 Description- Insurance Provider Collaboration: Finding insurance providers that cover five or more patients at the clinic, this query identifies key insurance partnerships. It's essential for negotiating insurance contracts, understanding patient insurance preferences, and ensuring a broad coverage network. This collaboration between clinics and insurance providers is vital for patient access to affordable care and clinic revenue management.
+
+---------------------------------------------------------------------------------------
+10. This query finds the staffName, position, and specialization of staff members that used the ECG machine. 
+
+SELECT staffName,position,specialization
+FROM MedicalStaffs 
+WHERE EXISTS (
+    SELECT*
+    FROM PatientTreatments 
+    JOIN Equipments USING (equipmentID)
+    WHERE MedicalStaffs.staffID = PatientTreatments.staffID AND Equipments.name REGEXP 'ECG'
+
+ ![image](https://github.com/Willtsolomon/MIST-4610-Project-one/assets/165089413/52851fc7-119a-439d-9775-8f3cff09c9b7)
+
+
+Q10 Description- Staff Utilization of Medical Equipment: By identifying staff members who have used the ECG machine, this query highlights the integration of technology in patient care and the expertise of staff in utilizing specific equipment. It's relevant for assessing training needs, ensuring competent use of medical technology, and planning for equipment maintenance or upgrades to enhance patient care quality.
 
 ## Database Information
 
