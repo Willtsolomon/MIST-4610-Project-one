@@ -41,7 +41,7 @@ Furthermore, we recognized the importance of tracking patient interactions and m
 
 Overall, our data model provides a comprehensive framework for managing the complex operations of our emergency healthcare clinic, enabling us to deliver efficient, high-quality care to patients in need, around the clock.
 
-![Image%203-26-24%20at%204 32%E2%80%AFPM](https://github.com/Willtsolomon/MIST-4610-Project-one/assets/150104481/f7d780a0-b0e5-48e5-9ad2-4d4458c672a1)
+![Remote Print Job (14)_Page_1](https://github.com/Willtsolomon/MIST-4610-Project-one/assets/165089413/0261b488-6036-4c9d-86a3-9594c8c19095)
 
 ## Data Dictionary:
 
