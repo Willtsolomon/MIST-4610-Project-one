@@ -35,7 +35,7 @@ Within each department, there are many healthcare professionals, including physi
 
 Our clinic offers a diverse range of medical services to meet the needs of our patients. These services may include diagnostic imaging, laboratory testing, minor surgical procedures, and specialized treatments for acute conditions. Each service is represented as an entity within our data model, with attributes such as Service ID, Service Name, Description, and Associated Costs.
 
-In addition to medical services, our clinic may also offer ancillary facilities and resources, such as pharmacies, rehabilitation centers, and counseling services. These facilities are integrated into our data model as separate entities, allowing for comprehensive management of patient care and support services.
+In addition to medical services, our clinic may also offer supplementary facilities and resources, such as pharmacies, rehabilitation centers, and counseling services. These facilities are integrated into our data model as separate entities, allowing for comprehensive management of patient care and support services.
 
 Furthermore, we recognized the importance of tracking patient interactions and medical histories to ensure continuity of care. Therefore, our data model includes entities such as Medical Records, Visit Logs, and Treatment Plans, which capture detailed information about patient encounters, diagnoses, treatments, and follow-up care.
 
