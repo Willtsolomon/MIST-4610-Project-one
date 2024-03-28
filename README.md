@@ -25,7 +25,7 @@ The problem at hand is to model a relational database for the day-to-today worki
 
 ## Data Model:
 
-Data Model Explanation: Our data model is designed to efficiently manage the operations of our emergency healthcare clinic, ensuring that we deliver timely and comprehensive medical care to patients with urgent health needs. Our clinic operates around the clock, offering a wide range of medical services from minor injuries to critical conditions, all with a focus on patient-centric care.
+Our data model is designed to efficiently manage the operations of our emergency healthcare clinic, ensuring that we deliver timely and comprehensive medical care to patients with urgent health needs. Our clinic operates around the clock, offering a wide range of medical services from minor injuries to critical conditions, all with a focus on patient-centric care.
 
 At the core of our database is the Patients entity. This entity represents individuals seeking medical assistance at our clinic. Each patient is assigned a unique Patient ID, serving as a primary key for identification purposes. The Patients entity captures essential information about each patient, including their Name, Date of Birth, Gender, City, State, Phone Number, Email, and Emergency Contact Information. These details enable us to effectively communicate with patients and their families, ensuring seamless coordination of care.
 
